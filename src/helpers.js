@@ -20,8 +20,8 @@ function fit(cover) {
   }
 }
 
-export const contain = fit(false)
-export const cover = fit(true)
+export const contain = fit(true)
+export const cover = fit(false)
 
 export function wrapText(context, text, x, y, maxWidth, lineHeight) {
   var words = text.split(' '),
