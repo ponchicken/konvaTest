@@ -1,77 +1,76 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import Konva from 'konva'
 import uuid from 'uuid/v1'
-import { cover, contain } from './helpers'
+import { cover, contain, downloadFromUrl } from './helpers'
+
+const bg = require('./assets/bg.jpg')
 
 const cWidth = 600
 const cHeight = 500
 const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus temporibus, sunt alias dignissimos assumenda ab numquam porro quam consectetur doloremque error praesentium hic doloribus, iusto soluta nulla libero dolore non illo, consequuntur quos. Sed repellendus est dolorem, eum necessitatibus, fugit quasi blanditiis libero ipsum, quod fugiat corrupti assumenda voluptates animi!'
 
-const calcProportions = ({ width, height }) => {
-  return width / height
-}
-
 const KonvaCanvas = () => {
   const [stage, setStage] = useState(null)
-  const [image, setImage] = useState(null)
-  const [coords, setCoords] = useState({
-    width: cWidth,
-    height: cHeight
-  })
-
-  const [scale, setScale] = useState({
-    x: 1,
-    y: 1
-  })
 
   const id = useMemo(uuid, [])
-  const layer = useMemo(() => new Konva.Layer(), [])
+  // const layer = useMemo(() => new Konva.Layer(), [])
 
   const loadImage = () => {
-    console.log('loadImage')
-    const imageUrl = 'https://wallpaperplay.com/walls/full/c/5/3/34778.jpg'
-    const imageEl = new window.Image()
-    imageEl.src = imageUrl
 
-    imageEl.addEventListener('load', () => {
-      const { width, height } = imageEl
-      const proportions = calcProportions({ width, height })
-
-      const imageWidth = 600
-      const imageHeight = imageWidth / proportions
-      const x = 0
-      const y = (cHeight - imageHeight) / 2
-
-      setCoords({
-        width,
-        height
+    return new Promise(resolve => {
+      const layer = new Konva.Layer()
+      const imageUrl = bg
+      const imageEl = new window.Image()
+      imageEl.src = `${imageUrl}`
+  
+      imageEl.addEventListener('load', () => {
+        const coverImg =  cover(
+          cWidth,
+          cHeight,
+          imageEl.naturalWidth,
+          imageEl.naturalHeight
+        )
+  
+        const konvaImg = new Konva.Image({
+          ...coverImg,
+          image: imageEl
+        })
+  
+        // setImage(imageEl)
+        layer.add(konvaImg)
+        layer.batchDraw()
+        resolve(layer)
       })
-
-      setScale({
-        x: 0.1,
-        y: 0.1
-      })
-
-      const coverImg =  cover(
-        cWidth,
-        cHeight,
-        imageEl.naturalWidth,
-        imageEl.naturalHeight
-      )
-
-      console.log(coverImg)
-
-      const konvaImg = new Konva.Image({
-        ...coverImg,
-        image: imageEl
-      })
-
-      console.log(layer)
-
-      // setImage(imageEl)
-      layer.add(konvaImg)
-      layer.batchDraw()
     })
+  }
+
+  const loadText = () => {
+    const layer = new Konva.Layer()
+    var complexText = new Konva.Text({
+      x: 0,
+      y: 60,
+      text:
+        "All the world's a stage, and all the men and women merely players. They have their exits and their entrances.",
+      fontSize: 24,
+      fontFamily: 'Arial',
+      fill: '#999',
+      width: cWidth,
+      padding: 20,
+      align: 'left'
+    });
+
+    var rect = new Konva.Rect({
+      x: 0,
+      y: 60,
+      fill: '#ddd',
+      width: cWidth,
+      height: complexText.height()
+    });
+
+    // add the shapes to the layer
+    layer.add(rect)
+    layer.add(complexText)
+    stage.add(layer)
   }
 
   useEffect(() => {
@@ -83,25 +82,28 @@ const KonvaCanvas = () => {
   }, [])
 
   useEffect(() => {
-    if (stage && layer) {
-      stage.add(layer)
-    }
-  }, [stage, layer])
-
-  useEffect(() => {
-    if (layer) {
+    if (stage) {
       loadImage()
+        .then((layer) => {
+          stage.add(layer)
+          loadText()
+        })
     }
-  }, [layer])
+  }, [stage])
 
   const onDownloadClick = () => {
-    console.log(stage.toDataURL({ pixelRatio: 3 }))
+    const url = stage.toDataURL()
+    console.log(url)
+    downloadFromUrl({
+      url,
+      filename: 'image.png'
+    })
   }
 
-  console.log(id)
   return (
     <>
       <div id={id}></div>
+      <button onClick={onDownloadClick}>download</button>
     </>
   )
 }

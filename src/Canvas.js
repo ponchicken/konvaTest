@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 
 import { cover, wrapText } from './helpers'
+const bg = require('./assets/bg.jpg')
 
 const cWidth = 600
 const cHeight = 500
@@ -8,7 +9,7 @@ const cHeight = 500
 const loadImg = ctx => {
   return new Promise(resolve => {
     const imageEl = new Image()
-    imageEl.src = 'https://wallpaperplay.com/walls/full/c/5/3/34778.jpg'
+    imageEl.src = `${bg}`
 
     imageEl.addEventListener('load', () => {
       const { x, y, width, height } = cover(
