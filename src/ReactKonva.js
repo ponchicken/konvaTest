@@ -9,7 +9,7 @@ const cWidth = 700
 const cHeight = 500
 const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus temporibus, sunt alias dignissimos assumenda ab numquam porro quam consectetur doloremque error praesentium hic doloribus, iusto soluta nulla libero dolore non illo, consequuntur quos. Sed repellendus est dolorem, eum necessitatibus, fugit quasi blanditiis libero ipsum, quod fugiat corrupti assumenda voluptates animi!'
 
-const KonvaCanvas = () => {
+const ReactConva = () => {
   const stageRef = useRef()
   const [image, imageStatus] = useImage(`${bg}`)
   const [imageParams, setImageParams] = useState({})
@@ -64,4 +64,4 @@ const KonvaCanvas = () => {
   )
 }
 
-export default KonvaCanvas
+export default ReactConva
