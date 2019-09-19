@@ -1,2 +1,0 @@
-# konvaTest
-Created with CodeSandbox

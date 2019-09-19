@@ -1,0 +1,10 @@
+.App {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+canvas {
+  width: 600px;
+  height: 500px;
+  background: #ddd;
+}
