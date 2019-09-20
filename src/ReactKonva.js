@@ -18,7 +18,9 @@ const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus t
 
 const inVino = 'In vino veritas!'
 
-const ReactConva = () => {
+const ReactConva = ({
+  onReady
+}) => {
   const stageRef = useRef(null)
   const tagRef = useRef(null)
 
@@ -26,7 +28,14 @@ const ReactConva = () => {
   const [imageParams, setImageParams] = useState({})
 
   const [labeOffsetY, setLabeOffsetY] = useState(null)
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(0)
+
+  const [ready, setReady] = useState({
+    image: false,
+    text: false
+  })
+
+  const isReady = Object.values(ready).every(Boolean)
 
   useEffect(() => {
     const calcScale = previewWidth / cWidth
@@ -42,6 +51,9 @@ const ReactConva = () => {
         image.naturalWidth,
         image.naturalHeight
       ))
+      setReady({
+        ...ready, image: true
+      })
     }
   }, [image, imageStatus])
 
@@ -49,6 +61,9 @@ const ReactConva = () => {
   useEffect(() => {
     if (tagRef.current) {
       setLabeOffsetY(tagRef.current.attrs.height / 2)
+      setReady({
+        ...ready, text: true
+      })
     }
   }, [tagRef])
 
@@ -65,6 +80,19 @@ const ReactConva = () => {
     }
   }
 
+  useEffect(() => {
+    if(isReady) {
+      if (stageRef.current) {
+        const url = stageRef.current.toDataURL({
+          pixelRatio: 1 / scale
+        })
+        onReady(url)
+      }
+    }
+  }, [isReady])
+
+
+
   return (
     <>
       <Stage
@@ -75,6 +103,7 @@ const ReactConva = () => {
           x: scale,
           y: scale
         }}
+        visible={isReady}
       >
         <Layer>
           <Image
