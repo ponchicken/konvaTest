@@ -7,11 +7,18 @@ import ReactKonva from './ReactKonva'
 import './styles.css'
 
 function App() {
+  const images = []
+  setTimeout(() => {
+    console.log(images)
+  }, 1000)
+
   return (
     <div className="App">
-      <ReactKonva
-        onReady={image => console.log(image)}
-      />
+      {
+        new Array(100).fill(' ').map((image) => (
+          <ReactKonva onReady={image => images.push(image)} />
+        ))
+      }
     </div>
   )
 }
