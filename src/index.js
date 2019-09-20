@@ -15,8 +15,8 @@ function App() {
   return (
     <div className="App">
       {
-        new Array(100).fill(' ').map((image) => (
-          <ReactKonva onReady={image => images.push(image)} />
+        new Array(1).fill(' ').map((_, i) => (
+          <ReactKonva key={i} onReady={image => images.push(image)} />
         ))
       }
     </div>

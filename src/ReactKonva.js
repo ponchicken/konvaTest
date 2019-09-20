@@ -6,10 +6,10 @@ import { cover, contain, downloadFromUrl } from './helpers'
 const bg = require('./assets/bg.jpg')
 
 const cWidth = 1200
-const cHeight = 800
+const cHeight = 1000
 // const padding = 
 const vCenter = cHeight / 2
-const previewWidth = 100
+const previewWidth = 600
 const substrateColor = '#000a'
 const textColor = '#eee'
 const fontSize = 40
