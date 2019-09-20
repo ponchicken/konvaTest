@@ -5,8 +5,9 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@types/react": "^16.9.2",
     "konva": "4.0.10",
-    "react": "16.8.6",
+    "react": "^16.9.0",
     "react-dom": "16.8.6",
     "react-konva": "16.9.0-0",
     "react-scripts": "3.0.1",
