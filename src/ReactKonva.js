@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Stage, Layer, Text, Image, Rect, Group, Label, Tag } from 'react-konva'
+import { Stage, Layer, Text, Image, Label, Tag } from 'react-konva'
 import useImage from 'use-image'
 import { cover, contain, downloadFromUrl } from './helpers'
 
@@ -9,7 +9,7 @@ const cWidth = 1200
 const cHeight = 800
 // const padding = 
 const vCenter = cHeight / 2
-const previewWidth = 600
+const previewWidth = 100
 const substrateColor = '#000a'
 const textColor = '#eee'
 const fontSize = 40
@@ -83,18 +83,19 @@ const ReactConva = ({
   useEffect(() => {
     if(isReady) {
       if (stageRef.current) {
-        const url = stageRef.current.toDataURL({
-          pixelRatio: 1 / scale
-        })
-        onReady(url)
+        // const url = stageRef.current.toDataURL({
+        //   pixelRatio: 1 / scale
+        // })
+        onReady(stageRef.current)
       }
     }
   }, [isReady])
 
-
-
   return (
     <>
+      { !isReady && (
+        <div>...loading</div>
+      )}
       <Stage
         width={cWidth * scale}
         height={cHeight * scale}
