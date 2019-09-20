@@ -6,9 +6,13 @@ import { cover, contain, downloadFromUrl } from './helpers'
 const bg = require('./assets/bg.jpg')
 
 const cWidth = 1200
-const cHeight = 500
+const cHeight = 800
+// const padding = 
 const vCenter = cHeight / 2
 const previewWidth = 600
+const substrateColor = '#000a'
+const textColor = '#eee'
+const fontSize = 40
 
 const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus temporibus, sunt alias dignissimos assumenda ab numquam porro quam consectetur doloremque error praesentium hic doloribus, iusto soluta nulla libero dolore non illo, consequuntur quos. Sed repellendus est dolorem, eum necessitatibus, fugit quasi blanditiis libero ipsum, quod fugiat corrupti assumenda voluptates animi!'
 
@@ -87,15 +91,14 @@ const ReactConva = () => {
               ref={tagRef}
               width={cWidth}
               height={200}
-              opacity={0.5}
-              fill='#000'
+              fill={substrateColor}
             />
             <Text
               text={text}
-              fontSize={30}
+              fontSize={fontSize}
               lineHeight={1.2}
               width={cWidth}
-              fill='#eee'
+              fill={textColor}
               padding={20}
             />
           </Label>
