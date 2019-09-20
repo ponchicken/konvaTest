@@ -62,7 +62,6 @@ export function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
 export const downloadFromUrl = ({ url, filename = 'file' }) => {
   const link = document.createElement('a')
-  console.log({ url, filename })
   link.href = url
   link.download = filename
   link.click()
