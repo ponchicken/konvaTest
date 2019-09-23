@@ -60,9 +60,13 @@ export function wrapText(context, text, x, y, maxWidth, lineHeight) {
   context.fillText(line, x, y)
 }
 
-export const downloadFromUrl = ({ url, filename = 'file' }) => {
+export const downloadFromUrl = async ({ url, filename = 'file' }) => {
+  const response = await fetch(url)
+  const blob = await response.blob()
+  const blobUrl = URL.createObjectURL(blob)
+
   const link = document.createElement('a')
-  link.href = url
+  link.href = blobUrl
   link.download = filename
   link.click()
 }
