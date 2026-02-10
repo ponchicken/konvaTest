@@ -10,7 +10,7 @@
     "react": "^16.9.0",
     "react-dom": "16.8.6",
     "react-konva": "16.9.0-0",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "use-image": "1.0.4",
     "uuid": "^3.3.3"
   },
